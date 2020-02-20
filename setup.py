@@ -5,8 +5,8 @@ with open("README.md", "r") as fh:
 
 
 setuptools.setup(
-    name='multisig-hmac-AmalieDue',  
-    version='0.0.3',
+    name='multisig-hmac',  
+    version='0.0.4',
     author="Amalie Due Jensen",
     author_email="amalieduejensen@hotmail.com",
     description="multisig HMAC",
@@ -16,7 +16,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: ISC License",
+        "License :: OSI Approved :: ISC License (ISCL)",
         "Operating System :: OS Independent",
     ],
 )
