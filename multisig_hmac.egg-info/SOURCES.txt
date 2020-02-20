@@ -1,7 +1,0 @@
-README.md
-multisig-hmac
-setup.py
-multisig_hmac.egg-info/PKG-INFO
-multisig_hmac.egg-info/SOURCES.txt
-multisig_hmac.egg-info/dependency_links.txt
-multisig_hmac.egg-info/top_level.txt
