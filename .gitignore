@@ -1,1 +1,6 @@
+# Folders
 multisig_hmac.egg-info/
+dist/
+
+# Files
+.DS_Store
