@@ -1,8 +1,8 @@
 # Folders
 multisig_hmac.egg-info/
 dist/
-.ipynb_checkpoints
-*/.ipynb_checkpoints/*
+tests/.ipynb_checkpoints/*.ipynb
+multisig-hmac/.ipynb_checkpoints/*.ipynb
 
 # Files
 .DS_Store
