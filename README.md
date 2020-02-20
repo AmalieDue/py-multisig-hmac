@@ -4,6 +4,11 @@
 
 Work in progress
 
+## Installation
+```console
+$ pip install multisig-hmac
+```
+
 ## Usage
 Key management can happen in either of two modes, either by storing every of the component keys, or by storing a single master seed and using that to derive keys ad hoc.
 
