@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='multisig-hmac',  
-    version='0.0.4',
+    version='0.2.1',
     author="Amalie Due Jensen",
     author_email="amalieduejensen@hotmail.com",
     description="multisig HMAC",
