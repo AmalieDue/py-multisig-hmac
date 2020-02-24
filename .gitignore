@@ -1,8 +1,7 @@
 # Folders
 multisig_hmac.egg-info/
 dist/
-tests/.ipynb_checkpoints/*.ipynb
-multisig-hmac/.ipynb_checkpoints/*.ipynb
+multisig_hmac_python_version/__pycache__
 
 # Files
 .DS_Store
