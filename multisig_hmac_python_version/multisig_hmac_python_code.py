@@ -3,7 +3,6 @@
 
 # In[ ]:
 
-
 import os
 import binascii
 import base64
