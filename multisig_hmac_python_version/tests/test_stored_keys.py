@@ -3,8 +3,12 @@
 
 # In[ ]:
 
+import os, sys
+sys.path.insert(0, os.path.abspath(".."))
 
-from multisig-hmac.multisig_hmac import MultisigHMAC
+from multisig_hmac_python_code import MultisigHMAC
+
+import base64
 
 # Example
 m = MultisigHMAC()
@@ -35,5 +39,5 @@ threshold = 3
 keys = [k0, k1, k2, k3, k4]
 signature = received
 
-m.verify(keys, signature, data, threshold)
+print(m.verify(keys, signature, data, threshold))
 
