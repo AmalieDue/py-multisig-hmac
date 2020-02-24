@@ -98,6 +98,7 @@ class MultisigHMAC:
         return (bitfield, sigs)
 
     def verify(self, keys, signature, data, threshold): # verifies signature of data against a list of keys
+        #assert keys != [], "no keys have been given"
         assert threshold > 0, "threshold must be at least 1"
         assert type(data) == bytes, "data must be bytes" 
         bitfield = signature[0]
