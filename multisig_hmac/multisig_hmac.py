@@ -142,6 +142,4 @@ class MultisigHMAC:
         
         return (bitfield == 0 and sum(sig) == 0)
 
-
-
-# %%
+        
