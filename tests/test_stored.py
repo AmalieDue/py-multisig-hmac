@@ -16,7 +16,7 @@ class TestStoredKeys(object):
         assert type(key[1]) == bytes
         assert len(key[1]) == MultisigHMAC.KEYBYTES
 
-        # Data has 3 equiv classes: empty, less than block size, larger than block size
+        # The data-input to the sign function has 3 equiv classes: empty, less than block size, larger than block size
         # These are tested below
         data_empty = b''
         data_short = b'hello world'
@@ -39,15 +39,15 @@ class TestStoredKeys(object):
         assert type(out[1]) == bytearray
         assert len(out[1]) == MultisigHMAC.BYTES
 
-    # Verify has more equiv classes
+    # The inputs to the verify function have more equiv classes
 
     def test_keys(self):
         # The following keys-inputs are tested:
         #  - no keys
         #  - missing some keys
-        #  - too many keys (happy path)
+        #  - too many keys
         #  - keys in random order
-        #  - keys in right order (happy path)
+        #  - keys in right order
 
         m = MultisigHMAC()
 
@@ -114,14 +114,14 @@ class TestStoredKeys(object):
 
     def test_data(self):
         # The following data-inputs are tested:
-        #  - Same equiv as for sign
+        #  - Same equiv classes as for the sign function
         #  - Incorrect data (len - 1, len, len + 1, wrong data)
         m = MultisigHMAC()
 
         k0 = m.keygen(0)
         k1 = m.keygen(1)
         
-        # same equiv as for sign
+        # same equiv classes as for the sign function
         data_empty = b''
         data_short = b'hello world'
         data_long = data_short * 100
@@ -138,9 +138,9 @@ class TestStoredKeys(object):
         out_long = m.combine([s0_long, s1_long])
 
         keys = [k0, k1]
-        assert m.verify(keys, out_empty, data_empty, 2)
-        assert m.verify(keys, out_short, data_short, 2)
-        assert m.verify(keys, out_long, data_long, 2)
+        assert m.verify(keys, out_empty, data_empty, 2) # (success)
+        assert m.verify(keys, out_short, data_short, 2) # (success)
+        assert m.verify(keys, out_long, data_long, 2) # (success)
 
         # incorrect data
         data_wrong1 = b'hello worl'
@@ -191,7 +191,7 @@ class TestStoredKeys(object):
         # threshold = len(keys) + 1
         assert m.verify(keys, out, data, len(keys) + 1) == False
 
-    def test_correct(self):
+    def test_success(self):
         m = MultisigHMAC()
 
         k0 = m.keygen(0)
@@ -215,5 +215,5 @@ class TestStoredKeys(object):
         keys = [k0, k1, k2]
         signature = received
 
-        assert m.verify(keys, signature, data, threshold)
+        assert m.verify(keys, signature, data, threshold) # (success)
 

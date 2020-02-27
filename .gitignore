@@ -1,7 +1,8 @@
 # Folders
 multisig_hmac.egg-info/
 dist/
-multisig_hmac_python_version/__pycache__
+multisig_hmac/__pycache__
+tests/__pycache__
 
 # Files
 .DS_Store

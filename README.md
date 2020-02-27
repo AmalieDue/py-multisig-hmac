@@ -16,18 +16,18 @@ import base64
 m = MultisigHMAC()
 
 # generate keys which need to be stored securely and need to be shared securely with each party
-k1 = m.keygen()
-k2 = m.keygen()
-k3 = m.keygen()
+k0 = m.keygen(0)
+k1 = m.keygen(1)
+k2 = m.keygen(2)
 
 # sign by each client with 2-of-3
-data = b'Hello world'
+data = b'hello world'
 
-s1 = m.sign(k1, data)
-s3 = m.sign(k3, data)
+s0 = m.sign(k0, data)
+s2 = m.sign(k2, data)
 
 # combine the used signatures
-out = m.combine([s1, s3])
+out = m.combine([s0, s2])
 
 sent = (out[0], base64.urlsafe_b64encode(out[1]))
 
@@ -37,7 +37,7 @@ received = (sent[0], base64.urlsafe_b64decode(sent[1]))
 
 # verify on the server
 threshold = 2
-keys = [k1, k2, k3]
+keys = [k0, k1, k2]
 signature = received
 
 m.verify(keys, signature, data, threshold)
@@ -56,18 +56,18 @@ m = MultisigHMAC()
 # this seed must NOT be shared with any other party
 seed = m.seedgen()
 
-k1 = m.keygen()
-k2 = m.keygen()
-k3 = m.keygen()
+k0 = m.deriveKey(seed, 0)
+k1 = m.deriveKey(seed, 1)
+k2 = m.deriveKey(seed, 2)
 
 # sign by each client with 2-of-3
-data = b'Hello world'
+data = b'hello world'
 
-s1 = m.sign(k1, data)
-s3 = m.sign(k3, data)
+s0 = m.sign(k0, data)
+s2 = m.sign(k2, data)
 
 # combine the used signatures
-out = m.combine([s1, s3])
+out = m.combine([s0, s2])
 
 sent = (out[0], base64.urlsafe_b64encode(out[1]))
 
@@ -77,13 +77,11 @@ received = (sent[0], base64.urlsafe_b64decode(sent[1]))
 
 # verify on the server, but now keys are dynamically derived
 threshold = 2
-keys = [k1, k2, k3]
 signature = received
 
-m.verifyDerived(keys, signature, data, threshold)
+m.verifyDerived(seed, signature, data, threshold)
 
 ```
-
 
 ## Installation
 ```console
