@@ -100,7 +100,8 @@ class MultisigHMAC:
     def verify(self, keys, signature, data, threshold): # verifies signature of data against a list of keys
         #assert keys != [], "no keys have been given"
         assert threshold > 0, "threshold must be at least 1"
-        assert type(data) == bytes, "data must be bytes" 
+        assert type(data) == bytes, "data must be bytes"
+        assert len(signature[1]) == self.__bytes, "signature must be BYTES long" 
         bitfield = signature[0]
         nKeys = self.popcount(bitfield)
         highestKey = 32 - self.nlz(bitfield)
@@ -141,3 +142,6 @@ class MultisigHMAC:
         
         return (bitfield == 0 and sum(sig) == 0)
 
+
+
+# %%

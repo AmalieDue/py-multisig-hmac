@@ -1,13 +1,8 @@
 # multisig-hmac-python-version
 
-> Multisig scheme for HMAC authentication
+> Multisig scheme for HMAC authentication. Python implementation of [multisig-hmac](https://github.com/emilbayes/multisig-hmac).
 
 Work in progress
-
-## Installation
-```console
-$ pip install multisig-hmac
-```
 
 ## Usage
 Key management can happen in either of two modes, either by storing every of the component keys, or by storing a single master seed and using that to derive keys ad hoc.
@@ -15,6 +10,9 @@ Key management can happen in either of two modes, either by storing every of the
 Using stored keys:
 
 ```python
+from multisig_hmac.multisig_hmac import MultisigHMAC
+import base64
+
 m = MultisigHMAC()
 
 # generate keys which need to be stored securely and need to be shared securely with each party
@@ -28,6 +26,7 @@ data = b'Hello world'
 s1 = m.sign(k1, data)
 s3 = m.sign(k3, data)
 
+# combine the used signatures
 out = m.combine([s1, s3])
 
 sent = (out[0], base64.urlsafe_b64encode(out[1]))
@@ -48,6 +47,9 @@ m.verify(keys, signature, data, threshold)
 Using a derived master key:
 
 ```python
+from multisig_hmac.multisig_hmac import MultisigHMAC
+import base64
+
 m = MultisigHMAC()
 
 # generate a master seed which needs to be stored securely
@@ -64,6 +66,7 @@ data = b'Hello world'
 s1 = m.sign(k1, data)
 s3 = m.sign(k3, data)
 
+# combine the used signatures
 out = m.combine([s1, s3])
 
 sent = (out[0], base64.urlsafe_b64encode(out[1]))
@@ -80,3 +83,19 @@ signature = received
 m.verifyDerived(keys, signature, data, threshold)
 
 ```
+
+
+## Installation
+```console
+$ pip install multisig-hmac
+```
+
+## Running tests
+```console
+$ pip install -U pytest
+$ py.test
+```
+
+## License
+
+[ISC](LICENSE)
