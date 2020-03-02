@@ -127,16 +127,18 @@ Generate a new cryptographically random key. The function returns `{ index: 32-b
 Note: `index` should be counted from 0.
 
 ### `masterSeed = MultisigHMAC.seedgen()`
-Generate a new cryptographically random master seed. Example:
-```python
-masterSeed = MultisigHMAC.seedgen()
-
-masterSeed
-
-    b'a"f-\xe7\xe8\xbe\xc7yY\xdc|\xe1\xca\xf3ry9\xc7\xf2\xa4\r\xe3\xcc\xd9\xdd\xf6J\xeeP*\x0f\xce\t\xed\x80\xc3\x00\xe3\x86~\x93s\xe7\x10`\xd7\x1a\x1b\xa0d`\xbfQ7\x00\xc9I\\\xaa\xf3\xeb\xe4\xbc'
-```
+Generate a new cryptographically random master seed.
 
 ### `key = MultisigHMAC.deriveKey(masterSeed, index)`
+Derive a new subkey from a master seed. `index` must be a 32-bit unsigned integer, but in practice you want to keep a much lower number, as the bitfield used with the signature has as many bits as the largest index. A simple counter suffices. The function returns `{ index: 32-bit unsigned integer, key: bytes of length MultisigHMAC.KEYBYTES }`.
+
+Note: `index` should be counted from 0.
+
+Keys are derived using a KDF based on HMAC:
+```
+b[0...BYTES] = HMAC(Key = masterSeed, data = 'derive' || U32LE(index) || 0x00)
+b[BYTES...] = HMAC(Key = masterSeed, b[0...BYTES] || 0x01)
+```
 
 ### `signature = MultisigHMAC.sign(key, data)`
 
