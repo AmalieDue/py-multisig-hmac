@@ -103,18 +103,38 @@ Specific algorithms:
 * `MultisigHMAC.SHA384_PRIMITIVE` is `sha384`
 
 ### `n = MultisigHMAC.popcount(bitfield)`
-Returns the number of keys (i.e. high bits) in `bitfield`. `bitfield` must be a 32-bit unsigned integer.
-Example:
+Returns the number of keys (i.e. high bits) in `bitfield`. `bitfield` must be a 32-bit unsigned integer. Example:
 ```python
-assert MultisigHMAC.keysCount(3) == 2
+assert MultisigHMAC.popcount(5) == 2
 ```
-### `xs = MultisigHMAC.keyIndexes(bitfield`
+
+### `xs = MultisigHMAC.keyIndexes(bitfield)`
+Returns the indexes of the keys (i.e. high bits) in `bitfield` as a list. `bitfield` must be a 32-bit unsigned integer. Example:
+```python
+assert MultisigHMAC.keyIndexes(5) == [0,2]
+```
 
 ### `m = MultisigHMAC([alg = MultisigHMAC.PRIMITIVE])`
+Create a new instance of `MultisigHMAC` which can be used as a global singleton. Just sets the algorithm to be used for subsequent methods and associated constants. Example:
+```python
+m = MultisigHMAC()
+assert (m.popcount(5) == 2 and m.keyIndexes(5) == [0,2])
+```
 
 ### `key = MultisigHMAC.keygen(index)`
+Generate a new cryptographically random key. The function returns `{ index: 32-bit unsigned integer, key: bytes of length MultisigHMAC.KEYBYTES }`.
+
+Note: `index` should be counted from 0.
 
 ### `masterSeed = MultisigHMAC.seedgen()`
+Generate a new cryptographically random master seed. Example:
+```python
+masterSeed = MultisigHMAC.seedgen()
+
+masterSeed
+
+    b'a"f-\xe7\xe8\xbe\xc7yY\xdc|\xe1\xca\xf3ry9\xc7\xf2\xa4\r\xe3\xcc\xd9\xdd\xf6J\xeeP*\x0f\xce\t\xed\x80\xc3\x00\xe3\x86~\x93s\xe7\x10`\xd7\x1a\x1b\xa0d`\xbfQ7\x00\xc9I\\\xaa\xf3\xeb\xe4\xbc'
+```
 
 ### `key = MultisigHMAC.deriveKey(masterSeed, index)`
 
