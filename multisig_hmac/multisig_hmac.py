@@ -98,10 +98,9 @@ class MultisigHMAC:
         return (bitfield, sigs)
 
     def verify(self, keys, signature, data, threshold): # verifies signature of data against a list of keys
-        #assert keys != [], "no keys have been given"
-        assert threshold > 0, "threshold must be at least 1"
-        assert type(data) == bytes, "data must be bytes"
         assert len(signature[1]) == self.__bytes, "signature must be BYTES long" 
+        assert type(data) == bytes, "data must be bytes"
+        assert threshold > 0, "threshold must be at least 1"
         bitfield = signature[0]
         nKeys = self.popcount(bitfield)
         highestKey = 32 - self.nlz(bitfield)
@@ -122,8 +121,11 @@ class MultisigHMAC:
         return (bitfield == 0 and sum(sig) == 0)
     
     def verifyDerived(self, masterSeed, signature, data, threshold): #verifies signature of data against derived keys
+        assert type(masterSeed) == bytes, "masterSeed must be bytes"
+        assert len(masterSeed) == self.__keybytes, "masterSeed must be KEYBYTES long"
+        assert len(signature[1]) == self.__bytes, "signature must be BYTES long"
+        assert type(data) == bytes, "data must be bytes"
         assert threshold > 0, "threshold must be at least 1"
-        assert type(data) == bytes, "data must be bytes" 
         bitfield = signature[0]
         nKeys = self.popcount(bitfield)
         

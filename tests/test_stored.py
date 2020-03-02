@@ -145,9 +145,9 @@ class TestStoredKeys(object):
         # incorrect data
         data_wrong1 = b'hello worl'
         data_wrong2 = b'hello worldd'
-        data_wrong3 = ''
-        assert m.verify(keys, out_empty, data_wrong1, 2) == False
-        assert m.verify(keys, out_empty, data_wrong2, 2) == False
+        data_wrong3 = 'hello world'
+        assert m.verify(keys, out_short, data_wrong1, 2) == False
+        assert m.verify(keys, out_short, data_wrong2, 2) == False
         with pytest.raises(AssertionError):
             assert m.verify(keys, out_empty, data_wrong3, 2)
 
