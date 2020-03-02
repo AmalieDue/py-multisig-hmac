@@ -103,7 +103,11 @@ Specific algorithms:
 * `MultisigHMAC.SHA384_PRIMITIVE` is `sha384`
 
 ### `n = MultisigHMAC.popcount(bitfield)`
-
+Returns the number of keys (i.e. high bits) in `bitfield`. `bitfield` must be a 32-bit unsigned integer.
+Example:
+```python
+assert MultisigHMAC.keysCount(3) == 2
+```
 ### `xs = MultisigHMAC.keyIndexes(bitfield`
 
 ### `m = MultisigHMAC([alg = MultisigHMAC.PRIMITIVE])`
