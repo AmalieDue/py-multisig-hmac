@@ -85,6 +85,43 @@ print(m.verifyDerived(seed, signature, data, threshold))
 
 ```
 
+## API
+### Constants
+* `MultisigHMAC.BYTES` signature length in bytes (default)
+* `MultisigHMAC.KEYBYTES` key length in bytes (default)
+* `MultisigHMAC.PRIMITIVE` is `sha256` (default)
+
+Specific algorithms:
+* `MultisigHMAC.SHA256_BYTES` signature length in bytes
+* `MultisigHMAC.SHA256_KEYBYTES` key length in bytes
+* `MultisigHMAC.SHA256_PRIMITIVE` is `sha256`
+* `MultisigHMAC.SHA512_BYTES` signature length in bytes
+* `MultisigHMAC.SHA512_KEYBYTES` key length in bytes
+* `MultisigHMAC.SHA512_PRIMITIVE` is `sha512`
+* `MultisigHMAC.SHA384_BYTES` signature length in bytes
+* `MultisigHMAC.SHA384_KEYBYTES` key length in bytes
+* `MultisigHMAC.SHA384_PRIMITIVE` is `sha384`
+
+### `n = MultisigHMAC.popcount(bitfield)`
+
+### `xs = MultisigHMAC.keyIndexes(bitfield`
+
+### `m = MultisigHMAC([alg = MultisigHMAC.PRIMITIVE])`
+
+### `key = MultisigHMAC.keygen(index)`
+
+### `masterSeed = MultisigHMAC.seedgen()`
+
+### `key = MultisigHMAC.deriveKey(masterSeed, index)`
+
+### `signature = MultisigHMAC.sign(key, data)`
+
+### `signature = MultisigHMAC.combine([signatures...])`
+
+### `valid = MultisigHMAC.verify(keys, signature, data, threshold)`
+
+### `valid = MultisigHMAC.verifyDerived(masterSeed, signature, data, threshold)`
+
 ## Installation
 ```console
 $ pip install multisig-hmac

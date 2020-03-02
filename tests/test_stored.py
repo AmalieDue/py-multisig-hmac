@@ -216,4 +216,4 @@ class TestStoredKeys(object):
         signature = received
 
         assert m.verify(keys, signature, data, threshold) # (success)
-
+        

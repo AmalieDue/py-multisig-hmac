@@ -34,12 +34,15 @@ class TestDerivedKeys(object):
         with pytest.raises(AssertionError):
             assert m.verifyDerived(b'', out, data, 2)
 
-        # len - 1
+        # len(masterseed) - 1
         seed_minus1 = seed[:-1]
         with pytest.raises(AssertionError):
             assert m.verifyDerived(seed_minus1, out, data, 2)
 
-        # len + 1
+        # len(masterseed)
+        assert m.verifyDerived(seed, out, data, 2) # (success)
+
+        # len(masterseed) + 1
         seed_plus1 = seed + b'\x00'
         with pytest.raises(AssertionError):
             assert m.verifyDerived(seed_plus1, out, data, 2)
@@ -193,6 +196,5 @@ class TestDerivedKeys(object):
         threshold = 2
         signature = received
 
-        assert m.verifyDerived(seed, signature, data, threshold)
-
+        assert m.verifyDerived(seed, signature, data, threshold) # (success)
         
