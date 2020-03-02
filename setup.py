@@ -6,13 +6,14 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='multisig-hmac',  
-    version='0.2.1',
+    version='0.2.3',
     author="Amalie Due Jensen",
     author_email="amalieduejensen@hotmail.com",
     description="multisig HMAC",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/AmalieDue/multisig-hmac-python-version",
+    py_modules = ["multisig_hmac"],
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

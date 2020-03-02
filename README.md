@@ -1,15 +1,16 @@
-# multisig-hmac-python-version
+# multisig-hmac
 
 > Multisig scheme for HMAC authentication. Python implementation of [multisig-hmac](https://github.com/emilbayes/multisig-hmac).
-
-Work in progress
 
 ## Usage
 Key management can happen in either of two modes, either by storing every of the component keys, or by storing a single master seed and using that to derive keys ad hoc.
 
+The following two examples return `true` when they are executed, for example inside a virtual environment.
+
 Using stored keys:
 
 ```python
+import multisig_hmac
 from multisig_hmac.multisig_hmac import MultisigHMAC
 import base64
 
@@ -40,13 +41,14 @@ threshold = 2
 keys = [k0, k1, k2]
 signature = received
 
-m.verify(keys, signature, data, threshold)
+print(m.verify(keys, signature, data, threshold))
 
 ```
 
 Using a derived master key:
 
 ```python
+import multisig_hmac
 from multisig_hmac.multisig_hmac import MultisigHMAC
 import base64
 
@@ -79,7 +81,7 @@ received = (sent[0], base64.urlsafe_b64decode(sent[1]))
 threshold = 2
 signature = received
 
-m.verifyDerived(seed, signature, data, threshold)
+print(m.verifyDerived(seed, signature, data, threshold))
 
 ```
 
