@@ -141,12 +141,16 @@ b[BYTES...] = HMAC(Key = masterSeed, b[0...BYTES] || 0x01)
 ```
 
 ### `signature = MultisigHMAC.sign(key, data)`
+Independently sign `data` with `key`. The function returns `{ bitfield: 32-bit unsigned integer, signature: bytes of length MultisigHMAC.BYTES }`. This object can be passed to the `combine()` function below.
 
 ### `signature = MultisigHMAC.combine([signatures...])`
+Combine a list of signatures which have all been signed independently. Only include each signature once, otherwise they will cancel out. Signatures can be combined in any order. The function returns `{ bitfield: 32-bit unsigned integer, signature: bytearray of length MultisigHMAC.BYTES }`.
 
 ### `valid = MultisigHMAC.verify(keys, signature, data, threshold)`
+Verify a `signature` of `data` against a list of `keys`, over a given `threshold`. `keys` must be an array of keys. The function returns `True` or `False`.
 
 ### `valid = MultisigHMAC.verifyDerived(masterSeed, signature, data, threshold)`
+Verify a `signature` of `data` against dynamically derived keys from `masterSeed`, over a given `threshold`. `masterSeed` must be bytes of length `KEYBYTES`. The function returns `True` or `False`.
 
 ## Installation
 ```console
