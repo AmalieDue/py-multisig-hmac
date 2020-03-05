@@ -3,6 +3,7 @@ multisig_hmac.egg-info/
 dist/
 multisig_hmac/__pycache__
 tests/__pycache__
+build/lib/
 
 # Files
 .DS_Store
