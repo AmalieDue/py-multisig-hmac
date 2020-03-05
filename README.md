@@ -21,7 +21,7 @@ k0 = m.keygen(0)
 k1 = m.keygen(1)
 k2 = m.keygen(2)
 
-# sign by each client with 2-of-3
+# sign by each client
 data = b'hello world'
 
 s0 = m.sign(k0, data)
@@ -62,7 +62,7 @@ k0 = m.deriveKey(seed, 0)
 k1 = m.deriveKey(seed, 1)
 k2 = m.deriveKey(seed, 2)
 
-# sign by each client with 2-of-3
+# sign by each client
 data = b'hello world'
 
 s0 = m.sign(k0, data)
