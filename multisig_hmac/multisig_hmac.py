@@ -48,34 +48,34 @@ class MultisigHMAC:
         h2 = hmac.new(masterSeed, h1.digest(), self.__alg) ; h2.update(bytearray([1])) ; h2.digest()
         return (index,h1.digest() + h2.digest())
 
-    def popcount(self, x): # counts 1-bits, corresponding to the number of keys
-        x = x - ((x >> 1) & 0x55555555)
-        x = (x & 0x33333333) + ((x >> 2) & 0x33333333)
-        x = (x + (x >> 4)) & 0x0F0F0F0F
-        x = x + (x >> 8)
-        x = x + (x >> 16)
-        return x & 0x0000003F
+    def popcount(self, bitfield): # counts 1-bits, corresponding to the number of keys
+        bitfield = bitfield - ((bitfield >> 1) & 0x55555555)
+        bitfield = (bitfield & 0x33333333) + ((bitfield >> 2) & 0x33333333)
+        bitfield = (bitfield + (bitfield >> 4)) & 0x0F0F0F0F
+        bitfield = bitfield + (bitfield >> 8)
+        bitfield = bitfield + (bitfield >> 16)
+        return bitfield & 0x0000003F
 
-    def keyIndexes(self, x): # x should be of type int. Returns the indexes of the keys
+    def keyIndexes(self, bitfield): # x should be of type int. Returns the indexes of the keys
         xs = []
         i = 0
-        while(x > 0):
-            if(x & 0x1):
+        while(bitfield > 0):
+            if(bitfield & 0x1):
                 xs.append(i)
-            x >>= 1
+            bitfield >>= 1
             i += 1
         return xs
 
-    def nlz(self, x): # counts number of leading zeros
+    def nlz(self, bitfield): # counts number of leading zeros
         n = 32
         c = 16
         while(c != 0):
-            y = x >> c
+            y = bitfield >> c
             if(y != 0):
                 n = n - c
-                x = y
+                bitfield = y
             c = c >> 1
-        return n - x
+        return n - bitfield
 
     def xorBytes(self, a, b):
         result = bytearray()

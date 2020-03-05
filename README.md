@@ -91,7 +91,7 @@ print(m.verifyDerived(seed, signature, data, threshold))
 * `MultisigHMAC.KEYBYTES` key length in bytes (default)
 * `MultisigHMAC.PRIMITIVE` is `sha256` (default)
 
-Specific algorithms:
+So far, the implementation supports the following specific algorithms:
 * `MultisigHMAC.SHA256_BYTES` signature length in bytes
 * `MultisigHMAC.SHA256_KEYBYTES` key length in bytes
 * `MultisigHMAC.SHA256_PRIMITIVE` is `sha256`
@@ -115,22 +115,22 @@ assert MultisigHMAC.keyIndexes(5) == [0,2]
 ```
 
 ### `m = MultisigHMAC([alg = MultisigHMAC.PRIMITIVE])`
-Create a new instance of `MultisigHMAC` which can be used as a global singleton. Just sets the algorithm to be used for subsequent methods and associated constants. Example:
+Creates a new instance of `MultisigHMAC` which can be used as a global singleton. Just sets the algorithm to be used for subsequent methods and associated constants. Example:
 ```python
 m = MultisigHMAC()
 assert (m.popcount(5) == 2 and m.keyIndexes(5) == [0,2])
 ```
 
 ### `key = MultisigHMAC.keygen(index)`
-Generate a new cryptographically random key. The function returns `{ index: 32-bit unsigned integer, key: bytes of length MultisigHMAC.KEYBYTES }`.
+Generates a new cryptographically random key. The function returns `{ index: 32-bit unsigned integer, key: bytes of length KEYBYTES }`.
 
 Note: `index` should be counted from 0.
 
 ### `masterSeed = MultisigHMAC.seedgen()`
-Generate a new cryptographically random master seed.
+Generates a new cryptographically random master seed.
 
 ### `key = MultisigHMAC.deriveKey(masterSeed, index)`
-Derive a new subkey from a master seed. `index` must be a 32-bit unsigned integer, but in practice you want to keep a much lower number, as the bitfield used with the signature has as many bits as the largest index. A simple counter suffices. The function returns `{ index: 32-bit unsigned integer, key: bytes of length MultisigHMAC.KEYBYTES }`.
+Derives a new subkey from a master seed. `index` must be a 32-bit unsigned integer, but in practice you want to keep a much lower number, as the bitfield used with the signature has as many bits as the largest index. The function returns `{ index: 32-bit unsigned integer, key: bytes of length KEYBYTES }`.
 
 Note: `index` should be counted from 0.
 
@@ -141,16 +141,16 @@ b[BYTES...] = HMAC(Key = masterSeed, b[0...BYTES] || 0x01)
 ```
 
 ### `signature = MultisigHMAC.sign(key, data)`
-Independently sign `data` with `key`. The function returns `{ bitfield: 32-bit unsigned integer, signature: bytes of length MultisigHMAC.BYTES }`. This object can be passed to the `combine()` function below.
+Independently signs `data` with `key`. The function returns `{ bitfield: 32-bit unsigned integer, signature: bytes of length BYTES }`. This object can be passed to the `combine()` function explained below.
 
 ### `signature = MultisigHMAC.combine([signatures...])`
-Combine a list of signatures which have all been signed independently. Only include each signature once, otherwise they will cancel out. Signatures can be combined in any order. The function returns `{ bitfield: 32-bit unsigned integer, signature: bytearray of length MultisigHMAC.BYTES }`.
+Combines a list of signatures which have all been signed independently. Only include each signature once, otherwise they will cancel out. Signatures can be combined in any order. The function returns `{ bitfield: 32-bit unsigned integer, signature: bytearray of length BYTES }`.
 
 ### `valid = MultisigHMAC.verify(keys, signature, data, threshold)`
-Verify a `signature` of `data` against a list of `keys`, over a given `threshold`. `keys` must be an array of keys. The function returns `True` or `False`.
+Verifies a `signature` of `data` against a list of `keys`, over a given `threshold`. `keys` must be an array of keys. The function returns `True` or `False`.
 
 ### `valid = MultisigHMAC.verifyDerived(masterSeed, signature, data, threshold)`
-Verify a `signature` of `data` against dynamically derived keys from `masterSeed`, over a given `threshold`. `masterSeed` must be bytes of length `KEYBYTES`. The function returns `True` or `False`.
+Verifies a `signature` of `data` against dynamically derived keys from `masterSeed`, over a given `threshold`. `masterSeed` must be bytes of length `KEYBYTES`. The function returns `True` or `False`.
 
 ## Installation
 ```console
