@@ -91,7 +91,7 @@ print(m.verifyDerived(seed, signature, data, threshold))
 * `MultisigHMAC.KEYBYTES` key length in bytes (default)
 * `MultisigHMAC.PRIMITIVE` is `sha256` (default)
 
-So far, the implementation supports the following specific algorithms:
+The implementation supports the following specific algorithms:
 * `MultisigHMAC.SHA256_BYTES` signature length in bytes
 * `MultisigHMAC.SHA256_KEYBYTES` key length in bytes
 * `MultisigHMAC.SHA256_PRIMITIVE` is `sha256`
