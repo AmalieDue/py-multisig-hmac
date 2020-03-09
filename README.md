@@ -136,7 +136,7 @@ Note: `index` should be counted from 0.
 
 Keys are derived using a KDF based on HMAC:
 ```
-b[0...BYTES] = HMAC(Key = masterSeed, data = 'derive' || U32LE(index) || 0x00)
+b[0...BYTES] = HMAC(Key = masterSeed, data = 'derived' || U32LE(index) || 0x00)
 b[BYTES...] = HMAC(Key = masterSeed, b[0...BYTES] || 0x01)
 ```
 
